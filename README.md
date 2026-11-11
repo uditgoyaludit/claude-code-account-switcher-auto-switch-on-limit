@@ -10,6 +10,10 @@
 
 **Claude account manager · multiple accounts · one-click switching · auto-switch on usage / rate limit · survives Claude Code updates**
 
+### [⬇️ Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
+
+✅ Tested on **macOS** · Windows and Linux supported, not yet tested ([report how it went](https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit/issues))
+
 </div>
 
 ---
@@ -35,16 +39,17 @@ A free, open-source extension for [Visual Studio Code](https://code.visualstudio
 
 ## Installation
 
-**From the VS Code Marketplace**
+**From the VS Code Marketplace** (recommended)
 
-1. Open the Extensions view (`Cmd/Ctrl` + `Shift` + `X`).
-2. Search for **Multi Account Switcher for Claude Code**.
-3. Click **Install**, then reload the window.
+- Open the **[Marketplace page](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)** and click **Install**, or
+- In VS Code, open the Extensions view (`Cmd/Ctrl` + `Shift` + `X`), search for **Claude Code Multi-Account Switcher**, and click **Install**.
+
+After installing, click **Reload Window** in the notification that appears.
 
 **From a `.vsix` file**
 
 ```sh
-code --install-extension claude-code-account-switcher-auto-switch-on-limit-1.0.0.vsix
+code --install-extension claude-code-account-switcher-auto-switch-on-limit-<version>.vsix
 ```
 
 ## Requirements
@@ -52,9 +57,19 @@ code --install-extension claude-code-account-switcher-auto-switch-on-limit-1.0.0
 - The [Claude Code](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) extension (`anthropic.claude-code`) installed in the same editor.
 - VS Code 1.84 or later.
 
+## Platform support
+
+| Platform | Status |
+| --- | --- |
+| **macOS** | ✅ Tested (Apple silicon, VS Code) |
+| **Windows** | Supported in the code, not yet tested |
+| **Linux** | Supported in the code, not yet tested |
+
+Tried it on Windows or Linux? Please [open an issue](https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit/issues) and say whether it worked.
+
 ## Usage
 
-1. Install the extension and reload the window (`Developer: Reload Window`).
+1. Install the extension and click **Reload Window** when asked (or run `Developer: Reload Window`).
 2. Click the account item in the status bar, or open the **Accounts** section in the Claude Code panel.
 3. Choose **Add account…**, give it a short name such as `work`, and finish the browser sign-in.
 4. Pick an account in the list to switch to it.
@@ -88,7 +103,7 @@ Please read this before installing.
 
 **Does it work with Claude Pro, Max and Team accounts?** It works with any account that signs in to Claude Code with a claude.ai login (it's been used day to day with Team accounts). API-key logins aren't supported.
 
-**Which editors work?** VS Code, and VS Code–based editors (Cursor, Windsurf, VSCodium) that run the Claude Code extension.
+**Which editors work?** It's tested in VS Code on macOS. VS Code–based editors that run the Claude Code extension (Cursor, Windsurf, VSCodium) should work too; install the `.vsix` there until it's on Open VSX.
 
 ## Contributing
 
