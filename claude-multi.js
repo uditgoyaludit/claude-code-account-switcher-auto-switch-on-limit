@@ -695,13 +695,22 @@ async function signIn(a, isNew) {
     if (!tok || !tok.accessToken || (before && tok.accessToken === before.accessToken)) continue;
     const st = await authStatus(a, true);
     if (!st || !st.loggedIn) continue;
+    term.dispose();
+    // Keep the login Claude is using now: save it as an account first if it isn't one.
+    try { await saveLiveLogin([a.alias]); } catch (e) { log('could not check the current login', e); }
+    const dup = cfg().accounts.find((x) => x.alias !== a.alias && sameLogin(x, st));
+    if (dup) {
+      if (isNew) fs.rmSync(dir, { recursive: true, force: true });
+      vscode.window.showInformationMessage(`That login${st.email ? ` (${st.email})` : ''} is already added as ${dup.alias}.`);
+      render();
+      return true;
+    }
     const c = cfg();
     const entry = { alias: a.alias, email: st.email || '', organization: st.orgName || '', orgId: st.orgId || '', subscription: st.subscriptionType || '' };
     const i = c.accounts.findIndex((x) => x.alias === a.alias);
     if (i >= 0) c.accounts[i] = { ...c.accounts[i], ...entry }; else c.accounts.push({ ...entry, addedAt: iso() });
     const makeLive = !c.activeAccount || c.activeAccount === a.alias;
     saveCfg(c);
-    term.dispose();
     if (makeLive && (await swapLogin(null, a.alias))) { seenActive = a.alias; applyLogin(); }
     await poll(a.alias, { force: true });
     vscode.window.showInformationMessage(`${a.alias} is signed in${st.email ? ` as ${st.email}` : ''}.`);
@@ -786,6 +795,46 @@ async function menu() {
   if (pick && pick.run) await pick.run();
 }
 
+// Same login? Match on email (and organisation when both sides know it), so two
+// accounts in one organisation are not mistaken for each other.
+const sameLogin = (a, st) => !!(st && a && (st.email
+  ? a.email === st.email && (!st.orgId || !a.orgId || a.orgId === st.orgId)
+  : st.orgId && a.orgId === st.orgId));
+
+// Make sure Claude's current login is one of the saved accounts before anything
+// replaces it: on first run, and before a newly added account is made live.
+// Saved under a name from its email (udit@... -> "udit"). Serialised so two
+// callers can't add it twice.
+let liveSaving = Promise.resolve();
+function saveLiveLogin(reserved = []) {
+  const job = liveSaving.then(async () => {
+    const st = await authStatus(null, false);
+    const live = ((await readCreds(null)) || {}).claudeAiOauth;
+    if (!(st && st.loggedIn && st.authMethod === 'claude.ai' && live && live.accessToken)) return null;
+    const c = cfg();
+    const known = c.accounts.find((a) => sameLogin(a, st));
+    if (known) {
+      if (!c.activeAccount) { c.activeAccount = known.alias; saveCfg(c); }
+      return known.alias;
+    }
+    const base = ((st.email || '').split('@')[0].replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'main').slice(0, 32);
+    let alias = base, n = 2;
+    while (c.accounts.some((a) => a.alias === alias) || reserved.includes(alias)) alias = `${base}-${n++}`;
+    const a = { alias, email: st.email || '', organization: st.orgName || '', orgId: st.orgId || '', subscription: st.subscriptionType || '', addedAt: iso() };
+    fs.mkdirSync(dirOf(a), { recursive: true });
+    if (!(await writeCreds(dirOf(a), live))) { log('could not save the current login'); return null; }
+    copyAccountInfo(LIVE_INFO, slotInfo(a));
+    const c2 = cfg();
+    c2.accounts.unshift(a);
+    c2.activeAccount = alias; // it is the live login
+    saveCfg(c2);
+    log('saved the current Claude login as', alias);
+    return alias;
+  });
+  liveSaving = job.catch(() => null);
+  return job;
+}
+
 // One-time setup: work out which account the live login belongs to. If it is not
 // one of the added accounts it becomes the first account, "main".
 async function adopt() {
@@ -797,18 +846,9 @@ async function adopt() {
   c = cfg();
   c.accounts = c.accounts.map(({ system, configDir, ...a }) => a);
   if (st && st.loggedIn && st.authMethod === 'claude.ai' && live && live.accessToken) {
-    const match = st.orgId && c.accounts.find((a) => a.orgId === st.orgId);
-    if (match) c.activeAccount = match.alias;
-    else {
-      let alias = 'main', n = 2;
-      while (c.accounts.some((a) => a.alias === alias)) alias = `main-${n++}`;
-      const a = { alias, email: st.email || '', organization: st.orgName || '', orgId: st.orgId || '', subscription: st.subscriptionType || '', addedAt: iso() };
-      fs.mkdirSync(dirOf(a), { recursive: true });
-      await writeCreds(dirOf(a), live);
-      copyAccountInfo(LIVE_INFO, slotInfo(a));
-      c.accounts.unshift(a);
-      c.activeAccount = alias;
-    }
+    saveCfg(c);
+    await saveLiveLogin();
+    c = cfg();
     c.swapSetup = true;
     saveCfg(c);
   } else {

@@ -2,7 +2,7 @@
   "name": "claude-code-account-switcher-auto-switch-on-limit",
   "displayName": "Claude Code Multi-Account Switcher & Manager – Auto-Switch on Limit",
   "description": "Unofficial Claude Code account manager: add multiple Claude accounts (Pro, Max, Team), switch in one click, see usage, and auto-switch when you hit the usage or rate limit.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "uditgoyaludit",
   "author": {
     "name": "Udit Goyal",

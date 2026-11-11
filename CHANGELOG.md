@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+- Your current Claude login is never lost: before a newly added account becomes the live login, the current login is saved as an account (named from its email) if it isn't one already.
+- Accounts are matched by email and organisation, so two accounts in the same organisation aren't confused.
+- Adding a login that's already in the list says so instead of adding a duplicate.
+
 ## 1.0.1
 
 - After installing, a **Reload Window** prompt appears, and the Accounts section explains that a reload is needed instead of showing "Loading accounts…" forever.
