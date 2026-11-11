@@ -251,6 +251,26 @@ const saveCfg = (c) => writeJSON(CONFIG, c);
 const iso = () => new Date().toISOString();
 const pct = (f) => Math.round((f || 0) * 100);
 const dirOf = (a) => path.join(PROFILES, a.alias);
+const REPO_URL = 'https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit';
+const openRepo = () => vscode.env.openExternal(vscode.Uri.parse(REPO_URL));
+
+// A polite, optional ask for a GitHub star: once after the 3rd successful switch,
+// again 10 switches after "Later", never after "Star" or "Don't ask again".
+function askForStar() {
+  const c = cfg(), s = c.starAsk || { switches: 0, askAt: 3 };
+  if (s.done) return;
+  s.switches = (s.switches || 0) + 1;
+  const due = s.switches >= (s.askAt || 3);
+  if (due) s.askAt = s.switches + 10; // claim this ask before showing, so other windows don't repeat it
+  c.starAsk = s;
+  saveCfg(c);
+  if (!due) return;
+  vscode.window.showInformationMessage('Enjoying Multi Account Switcher? A ⭐ on GitHub helps others find it.', 'Star on GitHub', 'Later', "Don't ask again")
+    .then((pick) => {
+      if (pick === 'Star on GitHub') openRepo();
+      if (pick === 'Star on GitHub' || pick === "Don't ask again") { const n = cfg(); n.starAsk = { ...(n.starAsk || s), done: true }; saveCfg(n); }
+    }, (e) => log('star ask failed', e));
+}
 
 // Earlier versions ran each account in its own folder; move any chats made
 // there into ~/.claude so they can be resumed.
@@ -569,6 +589,7 @@ async function switchTo(alias, reason, { manual = false } = {}) {
   if (from !== alias) {
     broadcast({ switched: { from, to: alias, reason: reason || '' } });
     vscode.window.showInformationMessage(`Claude is now using ${alias}${reason ? ` (${reason})` : ''}. A chat that is mid-reply moves over when the reply ends.`);
+    setTimeout(() => { try { askForStar(); } catch (e) { log('star ask failed', e); } }, 4000);
   }
 }
 
@@ -752,6 +773,8 @@ async function menu() {
     });
     items.push({ label: '$(trash) Remove account…', run: removeAccount });
   }
+  items.push({ label: '', kind: vscode.QuickPickItemKind.Separator });
+  items.push({ label: '$(star) Star on GitHub', description: 'helps others find this extension', run: openRepo });
   const pick = await vscode.window.showQuickPick(items, { title: 'Claude accounts', placeHolder: 'Pick an account to switch to it' });
   if (pick && pick.run) await pick.run();
 }
@@ -835,4 +858,4 @@ function start(context, sessionHost) {
   })().catch((e) => log('startup failed', e));
 }
 
-module.exports = { start, patchDir, claudeExtensionDirs, MARK, _test: { readCreds, writeCreds, swapLogin, keychainName } };
+module.exports = { start, patchDir, claudeExtensionDirs, MARK, _test: { readCreds, writeCreds, swapLogin, keychainName, askForStar } };
