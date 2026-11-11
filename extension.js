@@ -8,13 +8,32 @@ const path = require('path');
 const fs = require('fs');
 const { patchDir, claudeExtensionDirs } = require('./claude-multi.js');
 
-let vscode, warnedFor = new Set();
+let vscode, warnedFor = new Set(), reloadAsked = false, noClaudeWarned = false;
+
+// The patch is on disk, but this window's Claude Code loaded before it: the
+// account backend (globalThis.__claudeMulti, set by the patched Claude Code in
+// this same extension host) only starts after a reload. Ask once per window.
+function askReload() {
+  if (reloadAsked || globalThis.__claudeMulti) return;
+  reloadAsked = true;
+  vscode.window.showInformationMessage(
+    'Multi Account Switcher is installed. Reload the window to start using it (until then the Accounts section shows "Loading accounts…").',
+    'Reload Window'
+  ).then((pick) => { if (pick === 'Reload Window') vscode.commands.executeCommand('workbench.action.reloadWindow'); });
+}
 
 function patchAll(root) {
-  for (const dir of claudeExtensionDirs(root)) {
+  const dirs = claudeExtensionDirs(root);
+  if (!dirs.length && !noClaudeWarned) {
+    noClaudeWarned = true;
+    vscode.window.showWarningMessage('Multi Account Switcher needs the Claude Code extension. Install Claude Code, then reload the window.', 'Install Claude Code')
+      .then((pick) => { if (pick === 'Install Claude Code') vscode.commands.executeCommand('workbench.extensions.search', 'anthropic.claude-code'); });
+  }
+  let patched = false;
+  for (const dir of dirs) {
     try {
       const r = patchDir(dir);
-      if (r === 'patched') console.log('[claude-multi] applied to', dir);
+      if (r === 'patched') { console.log('[claude-multi] applied to', dir); patched = true; }
       warnedFor.delete(dir);
     } catch (e) {
       console.error('[claude-multi]', e.message);
@@ -25,6 +44,7 @@ function patchAll(root) {
       }
     }
   }
+  if (patched) askReload();
 }
 
 function activate(context) {

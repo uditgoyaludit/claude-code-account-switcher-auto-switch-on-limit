@@ -80,7 +80,9 @@ function webviewMain() {
   var orig = window.acquireVsCodeApi, api = null;
   if (typeof orig === 'function') window.acquireVsCodeApi = function () { return api || (api = orig()); };
   function post(m) { try { (api || window.acquireVsCodeApi()).postMessage(Object.assign({ type: 'claudeMulti' }, m)); } catch (e) {} }
-  var state = null, block = null, body = null, chevron = null, said = false, collapsed = false, queued = false, dragAlias = null;
+  var state = null, block = null, body = null, chevron = null, said = false, collapsed = false, queued = false, dragAlias = null, waited = false;
+  // No reply after a few seconds means this window's Claude Code loaded before the patch.
+  setTimeout(function () { waited = true; if (!state) draw(); }, 4000);
   function el(tag, style, text) {
     var e = document.createElement(tag);
     if (style) Object.assign(e.style, style);
@@ -136,7 +138,12 @@ function webviewMain() {
     body.style.display = collapsed ? 'none' : 'block';
     if (chevron) chevron.style.transform = collapsed ? 'rotate(0deg)' : 'rotate(90deg)';
     var dim = { color: DIM, fontSize: '12px' };
-    if (!state) { body.appendChild(el('div', dim, 'Loading accounts…')); return; }
+    if (!state) {
+      body.appendChild(el('div', dim, waited
+        ? 'Almost ready: reload the window to finish setting up accounts. Press Cmd/Ctrl+Shift+P and run "Developer: Reload Window".'
+        : 'Loading accounts…'));
+      return;
+    }
     if (!state.accounts.length) body.appendChild(el('div', Object.assign({ marginBottom: '8px' }, dim), 'No accounts yet. Add one to get started.'));
     state.accounts.forEach(function (a, idx) {
       var card = el('div', {
