@@ -2,3 +2,4 @@ node_modules/
 *.vsix
 .DS_Store
 .cache/
+logo-128.png

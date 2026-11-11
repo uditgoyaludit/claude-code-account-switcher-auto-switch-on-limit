@@ -292,7 +292,7 @@ function linkShared(a) {
     fs.mkdirSync(shared, { recursive: true });
     moveInto(own, shared);
     if (fs.existsSync(own)) fs.renameSync(own, own + '.unmerged-' + Date.now());
-    fs.symlinkSync(shared, own, 'dir');
+    fs.symlinkSync(shared, own, process.platform === 'win32' ? 'junction' : 'dir'); // a junction needs no admin rights on Windows
   }
 }
 
@@ -675,10 +675,10 @@ async function signIn(a, isNew) {
   fs.mkdirSync(dir, { recursive: true });
   const env = { CLAUDE_CONFIG_DIR: dir };
   for (const k of AUTH_VARS) env[k] = null;
-  const term = vscode.window.createTerminal({ name: `Claude sign-in: ${a.alias}`, env });
+  // Run the Claude binary directly (no shell), so it works whatever the default
+  // terminal is: zsh/bash, PowerShell, cmd or Git Bash.
+  const term = vscode.window.createTerminal({ name: `Claude sign-in: ${a.alias}`, env, shellPath: bin, shellArgs: ['auth', 'login', '--claudeai'] });
   term.show();
-  const q = process.platform === 'win32' ? `& "${bin}"` : `'${bin.replace(/'/g, `'\\''`)}'`;
-  term.sendText(`${q} auth login --claudeai`);
   const slotToken = async () => ((await readCreds(dir)) || {}).claudeAiOauth;
   const before = await slotToken();
   const deadline = Date.now() + 10 * 60e3;
