@@ -1,7 +1,7 @@
 {
   "name": "claude-code-account-switcher-auto-switch-on-limit",
-  "displayName": "Multi Account Switcher for Claude Code (Unofficial)",
-  "description": "Unofficial add-on: switch between several Claude accounts inside the Claude Code extension, and keep that switcher working across Claude Code updates.",
+  "displayName": "Claude Code Multi Account Manager & Switcher – Auto Switch on Usage Limit (Unofficial)",
+  "description": "Unofficial account manager for Claude Code: add multiple Claude accounts (Pro, Max, Team), switch in one click, see usage, and auto-switch to another account when you hit the usage or rate limit.",
   "version": "1.0.0",
   "publisher": "uditgoyaludit",
   "author": {
@@ -13,14 +13,28 @@
     "vscode": "^1.84.0"
   },
   "categories": [
+    "AI",
     "Other"
   ],
   "keywords": [
     "claude",
     "claude code",
-    "accounts",
+    "anthropic",
+    "multiple accounts",
     "multi account",
-    "account switcher"
+    "account manager",
+    "account switcher",
+    "switch account",
+    "auto switch",
+    "usage limit",
+    "rate limit",
+    "limit reached",
+    "claude pro",
+    "claude max",
+    "claude team",
+    "usage",
+    "login",
+    "profiles"
   ],
   "extensionKind": [
     "workspace"

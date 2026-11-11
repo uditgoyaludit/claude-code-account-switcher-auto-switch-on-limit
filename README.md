@@ -1,20 +1,20 @@
 <div align="center">
 
-# Multi Account Switcher for Claude Code
+# Claude Code Multi Account Manager & Switcher
 
-### Switch between multiple Claude accounts inside the Claude Code extension — no repeated sign-ins, no lost chats.
+### Manage multiple Claude accounts in Claude Code, switch in one click, and auto-switch when you hit the usage limit — no repeated sign-ins, no lost chats.
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit?label=VS%20Code%20Marketplace&color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
 [![Installs](https://img.shields.io/visual-studio-marketplace/i/uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit?color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**Multiple Claude accounts · one-click account switching · usage limit auto-switch · survives Claude Code updates**
+**Claude account manager · multiple accounts · one-click switching · auto-switch on usage / rate limit · survives Claude Code updates**
 
 </div>
 
 ---
 
-A free, open-source extension for [Visual Studio Code](https://code.visualstudio.com/) that adds **multi-account support to Claude Code**. Add your work and personal Claude accounts, see each account's usage, and switch between them in one click — your chats, settings and history stay exactly where they are.
+A free, open-source extension for [Visual Studio Code](https://code.visualstudio.com/) that adds **multi-account support to Claude Code**. Add your work and personal Claude accounts (Pro, Max or Team), see each account's usage, and switch between them in one click — your chats, settings and history stay exactly where they are.
 
 > **Unofficial.** This project is not made, endorsed or supported by Anthropic. "Claude" and "Claude Code" are trademarks of Anthropic. Make sure using several accounts is allowed by the terms that apply to those accounts.
 
@@ -83,6 +83,10 @@ Please read this before installing.
 **Will I lose my chats when I switch?** No. Claude Code keeps one folder for chats and settings; switching only swaps which account is logged in, so everything stays in place.
 
 **Does it send my data anywhere?** No. Logins stay on your machine and the only network call is to Anthropic's own usage endpoint, with your own login.
+
+**What happens when I hit the Claude usage limit?** With auto-switch on, the extension moves Claude Code to your next account as soon as the active one reaches the threshold you set (for example 90% of the 5-hour session or weekly limit), so you keep working instead of waiting for the limit to reset.
+
+**Does it work with Claude Pro, Max and Team accounts?** It works with any account that signs in to Claude Code with a claude.ai login (it's been used day to day with Team accounts). API-key logins aren't supported.
 
 **Which editors work?** VS Code, and VS Code–based editors (Cursor, Windsurf, VSCodium) that run the Claude Code extension.
 
