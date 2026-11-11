@@ -1,6 +1,6 @@
 <div align="center">
 
-# Claude Code Multi Account Manager & Switcher
+# Claude Code Multi-Account Switcher & Manager
 
 ### Manage multiple Claude accounts in Claude Code, switch in one click, and auto-switch when you hit the usage limit — no repeated sign-ins, no lost chats.
 
