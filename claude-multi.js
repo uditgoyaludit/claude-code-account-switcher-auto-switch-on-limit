@@ -255,13 +255,13 @@ const REPO_URL = 'https://github.com/uditgoyaludit/claude-code-account-switcher-
 const openRepo = () => vscode.env.openExternal(vscode.Uri.parse(REPO_URL));
 
 // A polite, optional ask for a GitHub star: once after the 3rd successful switch,
-// again 10 switches after "Later", never after "Star" or "Don't ask again".
+// again 3 switches after "Later", never after "Star" or "Don't ask again".
 function askForStar() {
   const c = cfg(), s = c.starAsk || { switches: 0, askAt: 3 };
   if (s.done) return;
   s.switches = (s.switches || 0) + 1;
   const due = s.switches >= (s.askAt || 3);
-  if (due) s.askAt = s.switches + 10; // claim this ask before showing, so other windows don't repeat it
+  if (due) s.askAt = s.switches + 3; // claim this ask before showing, so other windows don't repeat it
   c.starAsk = s;
   saveCfg(c);
   if (!due) return;
