@@ -3,3 +3,4 @@ icon.svg
 .vscodeignore
 .git/**
 .DS_Store
+assets/**

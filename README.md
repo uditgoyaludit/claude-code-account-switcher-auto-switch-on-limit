@@ -20,11 +20,9 @@ A free, open-source extension for [Visual Studio Code](https://code.visualstudio
 
 ## Demo
 
-<!-- Replace the placeholders below with real PNGs in assets/. See "Adding the screenshots". -->
+![Switching between multiple Claude accounts in the Claude Code extension, with live usage and auto-switch on usage limit](assets/demo.gif)
 
-| Account switcher in the panel | Status bar with live usage | Auto-switch on limit |
-| :---: | :---: | :---: |
-| ![Claude Code account switcher panel](assets/screenshot-panel.png) | ![Claude account usage in the VS Code status bar](assets/screenshot-statusbar.png) | ![Auto-switch between Claude accounts on usage limit](assets/screenshot-autoswitch.png) |
+*Account names and emails are blacked out in the recording.*
 
 ## Features
 
