@@ -1,5 +1,5 @@
 {
-  "name": "claude-multi-companion",
+  "name": "claude-code-account-switcher-auto-switch-on-limit",
   "displayName": "Multi Account Switcher for Claude Code (Unofficial)",
   "description": "Unofficial add-on: switch between several Claude accounts inside the Claude Code extension, and keep that switcher working across Claude Code updates.",
   "version": "1.0.0",
@@ -40,10 +40,10 @@
   "icon": "icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uditgoyaludit/claude-multi-companion.git"
+    "url": "https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit.git"
   },
   "bugs": {
-    "url": "https://github.com/uditgoyaludit/claude-multi-companion/issues"
+    "url": "https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit/issues"
   },
-  "homepage": "https://github.com/uditgoyaludit/claude-multi-companion#readme"
+  "homepage": "https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit#readme"
 }

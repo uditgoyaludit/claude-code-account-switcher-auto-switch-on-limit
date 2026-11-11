@@ -4,8 +4,8 @@
 
 ### Switch between multiple Claude accounts inside the Claude Code extension — no repeated sign-ins, no lost chats.
 
-[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/uditgoyaludit.claude-multi-companion?label=VS%20Code%20Marketplace&color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-multi-companion)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/uditgoyaludit.claude-multi-companion?color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-multi-companion)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit?label=VS%20Code%20Marketplace&color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit?color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Multiple Claude accounts · one-click account switching · usage limit auto-switch · survives Claude Code updates**
@@ -46,7 +46,7 @@ A free, open-source extension for [Visual Studio Code](https://code.visualstudio
 **From a `.vsix` file**
 
 ```sh
-code --install-extension claude-multi-companion-1.0.0.vsix
+code --install-extension claude-code-account-switcher-auto-switch-on-limit-1.0.0.vsix
 ```
 
 ## Requirements
