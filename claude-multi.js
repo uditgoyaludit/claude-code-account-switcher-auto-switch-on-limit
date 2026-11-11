@@ -395,7 +395,7 @@ async function refreshToken(a) {
   if (Date.now() - (lastRefresh.get(a.alias) || 0) < 5 * 60e3) return;
   lastRefresh.set(a.alias, Date.now());
   fs.mkdirSync(dirOf(a), { recursive: true });
-  await run(bin, ['-p', '/usage'], { env: envFor(a, !isActive(a)), cwd: dirOf(a) });
+  await run(bin, ['-p', '/usage', '--no-session-persistence'], { env: envFor(a, !isActive(a)), cwd: dirOf(a) });
 }
 
 async function authStatus(a, slot) {
