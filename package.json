@@ -1,0 +1,49 @@
+{
+  "name": "claude-multi-companion",
+  "displayName": "Multi Account Switcher for Claude Code (Unofficial)",
+  "description": "Unofficial add-on: switch between several Claude accounts inside the Claude Code extension, and keep that switcher working across Claude Code updates.",
+  "version": "1.0.0",
+  "publisher": "uditgoyaludit",
+  "author": {
+    "name": "Udit Goyal",
+    "url": "https://github.com/uditgoyaludit"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.84.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "claude",
+    "claude code",
+    "accounts",
+    "multi account",
+    "account switcher"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeMultiCompanion.repatch",
+        "title": "Claude Multi: Re-apply account patch"
+      }
+    ]
+  },
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uditgoyaludit/claude-multi-companion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/uditgoyaludit/claude-multi-companion/issues"
+  },
+  "homepage": "https://github.com/uditgoyaludit/claude-multi-companion#readme"
+}
