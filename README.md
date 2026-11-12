@@ -6,11 +6,12 @@
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit?label=VS%20Code%20Marketplace&color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
 [![Installs](https://img.shields.io/visual-studio-marketplace/i/uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit?color=blue)](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
+[![Open VSX](https://img.shields.io/open-vsx/v/uditgoyaludit0/claude-code-account-switcher-auto-switch-on-limit?label=Open%20VSX&color=purple)](https://open-vsx.org/extension/uditgoyaludit0/claude-code-account-switcher-auto-switch-on-limit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Claude account manager · multiple accounts · one-click switching · auto-switch on usage / rate limit · survives Claude Code updates**
 
-### [⬇️ Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)
+### [⬇️ Install for VS Code](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit) · [⬇️ Install for Cursor / Windsurf / VSCodium](https://open-vsx.org/extension/uditgoyaludit0/claude-code-account-switcher-auto-switch-on-limit)
 
 ✅ Tested on **macOS** · Windows and Linux supported, not yet tested ([report how it went](https://github.com/uditgoyaludit/claude-code-account-switcher-auto-switch-on-limit/issues))
 
@@ -43,6 +44,10 @@ A free, open-source extension for [Visual Studio Code](https://code.visualstudio
 
 - Open the **[Marketplace page](https://marketplace.visualstudio.com/items?itemName=uditgoyaludit.claude-code-account-switcher-auto-switch-on-limit)** and click **Install**, or
 - In VS Code, open the Extensions view (`Cmd/Ctrl` + `Shift` + `X`), search for **Claude Code Multi-Account Switcher**, and click **Install**.
+
+**From Open VSX** (Cursor, Windsurf, VSCodium)
+
+- Open the **[Open VSX page](https://open-vsx.org/extension/uditgoyaludit0/claude-code-account-switcher-auto-switch-on-limit)**, or search for **Claude Code Multi-Account Switcher** in your editor's Extensions view.
 
 After installing, click **Reload Window** in the notification that appears.
 
@@ -103,7 +108,7 @@ Please read this before installing.
 
 **Does it work with Claude Pro, Max and Team accounts?** It works with any account that signs in to Claude Code with a claude.ai login (it's been used day to day with Team accounts). API-key logins aren't supported.
 
-**Which editors work?** It's tested in VS Code on macOS. VS Code–based editors that run the Claude Code extension (Cursor, Windsurf, VSCodium) should work too; install the `.vsix` there until it's on Open VSX.
+**Which editors work?** It's tested in VS Code on macOS. VS Code–based editors that run the Claude Code extension (Cursor, Windsurf, VSCodium) should work too; install it there from [Open VSX](https://open-vsx.org/extension/uditgoyaludit0/claude-code-account-switcher-auto-switch-on-limit).
 
 ## Contributing
 
